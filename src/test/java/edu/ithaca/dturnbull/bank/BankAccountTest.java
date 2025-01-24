@@ -24,10 +24,40 @@ class BankAccountTest {
 
     @Test
     void isEmailValidTest(){
-        assertTrue(BankAccount.isEmailValid( "a@b.com"));   // valid email address
-        assertFalse( BankAccount.isEmailValid(""));         // empty string
 
-        
+        // Existence vs Non-Existence
+        assertFalse(BankAccount.isEmailValid("")); // email doesn't exist
+        // ("existence" is tested in other cases)
+
+        /* Prefix Partitions */ 
+
+        // Punctuation on Ends
+        assertFalse(BankAccount.isEmailValid("a-@b.com")); // trailing hyphen
+        assertFalse(BankAccount.isEmailValid("-a@b.com")); // hyphen first character
+        assertTrue(BankAccount.isEmailValid( "a-b@c.com"));   // valid hyphen (in middle)
+
+        // Valid Characters
+        assertTrue(BankAccount.isEmailValid( "a@b.com"));   // valid characters
+        assertFalse(BankAccount.isEmailValid("a#b@c.com")); // illegal character
+
+        // Consecutive Punctuation
+        assertTrue(BankAccount.isEmailValid( "a-b@c.com"));   // valid hyphen (only one)
+        assertFalse(BankAccount.isEmailValid("a--b@c.com")); // consecutive hyphens
+
+        /* Domain Partitions */
+
+        // Valid Characters
+        assertTrue(BankAccount.isEmailValid( "a@b-c.com"));   // valid characters
+        assertFalse(BankAccount.isEmailValid("a@b#c.com")); // illegal character
+
+        // Domain Part Existence
+        assertFalse(BankAccount.isEmailValid("a@b")); // missing last part of domain
+        assertTrue(BankAccount.isEmailValid( "a@b.com")); // both domain parts present
+
+        // Last Part of Domain Length
+        assertFalse(BankAccount.isEmailValid("a@b.c")); // short last part of domain
+        assertFalse(BankAccount.isEmailValid("a@b.cc")); // just long enough
+
     }
 
     @Test
