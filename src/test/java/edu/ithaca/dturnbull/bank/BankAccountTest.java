@@ -56,7 +56,7 @@ class BankAccountTest {
 
         // Last Part of Domain Length
         assertFalse(BankAccount.isEmailValid("a@b.c")); // short last part of domain
-        assertFalse(BankAccount.isEmailValid("a@b.cc")); // just long enough
+        assertTrue(BankAccount.isEmailValid("a@b.cc")); // just long enough
 
     }
 
