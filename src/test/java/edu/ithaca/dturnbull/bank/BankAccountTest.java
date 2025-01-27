@@ -35,8 +35,8 @@ class BankAccountTest {
         // Equivalence Class: Amount to withdraw has more/less than two decimal places
         BankAccount bankAccount4 = new BankAccount("a@b.com", 200);
         assertThrows(IllegalArgumentException.class, () -> bankAccount3.withdraw(0.001)); // border case: amount has three decimal places
-        bankAccount3.withdraw(0.01); // border case: amount has two decimal places
-        assertEquals(199.99, bankAccount3.getBalance(), 0.001);
+        bankAccount4.withdraw(0.01); // border case: amount has two decimal places
+        assertEquals(199.99, bankAccount4.getBalance(), 0.001);
     }
 
 
