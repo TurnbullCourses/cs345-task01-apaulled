@@ -45,7 +45,8 @@ public class BankAccount {
      * @return true if the amount is non-negative and has at most two decimal places
      */
     public static boolean isAmountValid(double amount) {
-        return false;
+        if (amount < 0 || amount * 100 != (int)(amount * 100)) return false;
+        return true;
     }
 
     public static boolean isEmailValid(String email){
