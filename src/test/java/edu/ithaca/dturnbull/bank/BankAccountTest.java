@@ -31,6 +31,12 @@ class BankAccountTest {
         assertThrows(IllegalArgumentException.class, () -> bankAccount3.withdraw(-0.01)); // border case: amount is just barely negative
         bankAccount3.withdraw(0.01); // border case: amount is just barely positive
         assertEquals(199.99, bankAccount3.getBalance(), 0.001);
+
+        // Equivalence Class: Amount to withdraw has more/less than two decimal places
+        BankAccount bankAccount4 = new BankAccount("a@b.com", 200);
+        assertThrows(IllegalArgumentException.class, () -> bankAccount3.withdraw(0.001)); // border case: amount has three decimal places
+        bankAccount3.withdraw(0.01); // border case: amount has two decimal places
+        assertEquals(199.99, bankAccount3.getBalance(), 0.001);
     }
 
 
@@ -92,6 +98,9 @@ class BankAccountTest {
         assertEquals(200, bankAccount.getBalance(), 0.001);
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
+
+        assertThrows(IllegalArgumentException.class, () -> new BankAccount("a@b.c", -1.00));
+        assertThrows(IllegalArgumentException.class, () -> new BankAccount("a@b.c", 1.001));
     }
 
 }
