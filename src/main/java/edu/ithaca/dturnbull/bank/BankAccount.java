@@ -39,6 +39,14 @@ public class BankAccount {
         }
     }
 
+        /**
+     * checks the validity of an amount of money
+     * @param amount the amount of money to check
+     * @return true if the amount is non-negative and has at most two decimal places
+     */
+    public static boolean isAmountValid(double amount) {
+        return false;
+    }
 
     public static boolean isEmailValid(String email){
         if (email.indexOf('@') == -1){

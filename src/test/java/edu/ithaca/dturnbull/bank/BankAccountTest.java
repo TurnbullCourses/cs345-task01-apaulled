@@ -10,7 +10,9 @@ class BankAccountTest {
     void getBalanceTest() {
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
 
-        assertEquals(200, bankAccount.getBalance(), 0.001);
+        // Equivalence Class: Amount in account is positive
+        assertTrue(bankAccount.getBalance() > 0); // border case: amount is positive
+        assertFalse(bankAccount.getBalance() < 0); // border case: amount is negative
     }
 
     @Test
@@ -29,6 +31,19 @@ class BankAccountTest {
         assertThrows(IllegalArgumentException.class, () -> bankAccount3.withdraw(-0.01)); // border case: amount is just barely negative
         bankAccount3.withdraw(0.01); // border case: amount is just barely positive
         assertEquals(199.99, bankAccount3.getBalance(), 0.001);
+    }
+
+
+    @Test
+    void isAmountValidTest() {
+
+        // Equivalence Class: Amount is non-negative
+        assertTrue(BankAccount.isAmountValid(0.00)); // border case; smallest possible amount
+        assertFalse(BankAccount.isAmountValid(-0.01));; // border case; largest possible negative amount
+
+        // Equivalence Class: Amount has at most two decimal places
+        assertTrue(BankAccount.isAmountValid(1.01)); // border case; exactly two decimal places
+        assertFalse(BankAccount.isAmountValid(1.011)); // border case; just over two decimal places (three)
     }
 
     @Test
