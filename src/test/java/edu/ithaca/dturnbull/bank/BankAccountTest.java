@@ -40,7 +40,10 @@ class BankAccountTest {
         bankAccount4.withdraw(0.01); // border case: amount has two decimal places
         assertEquals(199.99, bankAccount4.getBalance(), 0.001);
 
-        // could also test 0
+        // Added 0 border case after feedback:
+        BankAccount bankAccount5 = new BankAccount("a@b.com", 200);
+        bankAccount5.withdraw(0);
+        assertEquals(200, bankAccount5.getBalance(), 0.001);
     }
 
 
@@ -123,6 +126,11 @@ class BankAccountTest {
         assertThrows(IllegalArgumentException.class, () -> bankAccount3.deposit(0.001)); // border case: amount has three decimal places
         bankAccount4.deposit(0.01); // border case: amount has two decimal places
         assertEquals(200.01, bankAccount4.getBalance(), 0.001);
+
+        // Added 0 border case after feedback:
+        BankAccount bankAccount5 = new BankAccount("a@b.com", 200);
+        bankAccount5.deposit(0);
+        assertEquals(200, bankAccount5.getBalance(), 0.001);
     }
 
     @Test
@@ -134,6 +142,11 @@ class BankAccountTest {
         assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(bankAccount2, -0.01)); // border case: amount is just barely negative
         assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(bankAccount2, 0.001)); // border case: amount is just barely too many decimal places
         assertThrows(InsufficientFundsException.class, () -> bankAccount.transfer(bankAccount2, 200.01)); // border case: amount is just barely too much
+
+        // Added 0 border case after feedback:
+        bankAccount.transfer(bankAccount2, 0);
+        assertEquals(199, bankAccount.getBalance(), 0.001);
+        assertEquals(201, bankAccount2.getBalance(), 0.001);
     }
 
 

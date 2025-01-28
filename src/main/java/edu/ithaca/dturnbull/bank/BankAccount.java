@@ -87,10 +87,10 @@ public class BankAccount {
     // FYI: I replaced isEmailValid with my implementation so that the tests would pass. Kat, if you want to uncomment your version and finish it feel free
 
     private static boolean checkPart(String part, List<Character> allowedPunctuation) {
-        if (allowedPunctuation.contains(part.charAt(0)) || allowedPunctuation.contains(part.charAt(part.length()-1))) return false;
+        if (allowedPunctuation.contains(part.charAt(0)) || allowedPunctuation.contains(part.charAt(part.length()-1))) return false; // make sure the first and last character are alphanumeric
         for (int i = 0; i < part.length(); i++) {
-            if (!Character.isLetterOrDigit(part.charAt(i)) && !allowedPunctuation.contains(part.charAt(i))) return false;
-            if (allowedPunctuation.contains(part.charAt(i)) && allowedPunctuation.contains(part.charAt(i-1))) return false;
+            if (!Character.isLetterOrDigit(part.charAt(i)) && !allowedPunctuation.contains(part.charAt(i))) return false; // make sure each character is alphanumeric or allowed
+            if (allowedPunctuation.contains(part.charAt(i)) && allowedPunctuation.contains(part.charAt(i-1))) return false; // make sure no two allowed punctuation appear in a row
         }
         return true;
     }
@@ -102,17 +102,17 @@ public class BankAccount {
      */
     public static boolean isEmailValid(String email){
         String[] parts = email.split("@");
-        if (parts.length != 2 || parts[0].length() == 0 || parts[1].length() == 0) return false;
-        List<Character> allowedPunctuation = List.of('-', '.', '_');
+        if (parts.length != 2 || parts[0].length() == 0 || parts[1].length() == 0) return false; // checks for length on both sides of the @
+        List<Character> allowedPunctuation = List.of('-', '.', '_'); // the prefix is allowed these 3 punctuations
         if (!checkPart(parts[0], allowedPunctuation)) return false;
 
         String[] domainParts = parts[1].split("\\.");
-        if (domainParts.length != 2 || domainParts[0].length() == 0 || domainParts[1].length() == 0) return false;
+        if (domainParts.length != 2 || domainParts[0].length() == 0 || domainParts[1].length() == 0) return false; // check for length in both parts of the domain
 
-        List<Character> allowedPunctuationDomain = List.of('-');
+        List<Character> allowedPunctuationDomain = List.of('-'); // the domain is allowed only this punctuation (in a list for easy reuse of the checkPart method)
         if (!checkPart(domainParts[0], allowedPunctuationDomain)) return false;
 
-        if (domainParts[1].length() < 2) return false;
+        if (domainParts[1].length() < 2) return false; // top-level domain must be at least 2 characters
 
         if (!checkPart(domainParts[1], allowedPunctuationDomain)) return false;
         return true;
