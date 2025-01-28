@@ -38,6 +38,7 @@ public class BankAccount {
     }
 
     /**
+     * withdraws money from this bank account
      * @param amount the amount of money to withdraw
      * @post reduces the balance by amount if amount is non-negative and smaller than balance
      * @throws InsufficientFundsException if amount is negative or greater than balance
@@ -53,6 +54,8 @@ public class BankAccount {
     }
 
     /**
+     * deposits money in this bank account
+     * @param amount the amount of money to deposit
      * @post increases the balance by amount if amount is non-negative
      */
     public void deposit (double amount) throws InsufficientFundsException{
@@ -61,6 +64,7 @@ public class BankAccount {
     }
 
     /**
+     * transfers money from this count to another
      * @param other the account to transfer money to
      * @param amount the amount of money to transfer
      * @post increases the balance of the other account and decreases the balance of this account by the amount if it is non-negative and less than the balance of this account
@@ -70,7 +74,7 @@ public class BankAccount {
         other.deposit(amount);
     }
 
-        /**
+    /**
      * checks the validity of an amount of money
      * @param amount the amount of money to check
      * @return true if the amount is non-negative and has at most two decimal places
@@ -91,6 +95,11 @@ public class BankAccount {
         return true;
     }
 
+    /*
+     * checks the validity of an email address
+     * @param email the email address to check
+     * @return true if the email address is valid
+     */
     public static boolean isEmailValid(String email){
         String[] parts = email.split("@");
         if (parts.length != 2 || parts[0].length() == 0 || parts[1].length() == 0) return false;
