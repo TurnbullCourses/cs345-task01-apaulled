@@ -143,6 +143,12 @@ class BankAccountTest {
         assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(bankAccount2, 0.001)); // border case: amount is just barely too many decimal places
         assertThrows(InsufficientFundsException.class, () -> bankAccount.transfer(bankAccount2, 200.01)); // border case: amount is just barely too much
 
+        // Equivalence Class: Transfer to self
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(bankAccount, 1));
+
+        // Equivalence Class: Null transfer
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(null, 1));
+
         // Added 0 border case after feedback:
         bankAccount.transfer(bankAccount2, 0);
         assertEquals(199, bankAccount.getBalance(), 0.001);

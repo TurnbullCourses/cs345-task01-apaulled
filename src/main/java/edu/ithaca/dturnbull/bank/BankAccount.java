@@ -70,6 +70,8 @@ public class BankAccount {
      * @post increases the balance of the other account and decreases the balance of this account by the amount if it is non-negative and less than the balance of this account
      */
     public void transfer (BankAccount other, double amount) throws InsufficientFundsException{
+        if (this == other) throw new IllegalArgumentException("Cannot transfer to the same account");
+        if (other == null) throw new IllegalArgumentException("Cannot transfer to a null account");
         withdraw(amount);
         other.deposit(amount);
     }
